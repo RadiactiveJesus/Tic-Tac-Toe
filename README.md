@@ -1,7 +1,14 @@
 #Tic Tac Toe.
-=============
-In this project We've created the Tic Tac Toe game to play in an interface using the Ruby Programming language.
+==============================
+In this project We've created the Tic Tac Toe game to play on the command line where two human players can play against each other and the board is displayed in between turns. This program is built using the Ruby Programming language.
 ---
+================================
+## How To Play:
+	[0, 1, 2]
+	[3, 4, 5]
+	[6, 7, 8]
+Each number corresponds to one position on the Board. You can type the number of the position to play your turn there. We switch  turns after each player plays and the game ends if a player wins. Player1 is represented by the letter 'X' and Player2 by the letter 'O'
+
 ##Contributors:
-	[Raymon Kudjie](https://github.com/kudjieRaymond),
-	[Rodolfo Jose Llinas](https://github.com/RadiactiveJesus)
+* [Raymond Kudjie](https://github.com/kudjieRaymond),
+* [Rodolfo Jose Llinas](https://github.com/RadiactiveJesus)
