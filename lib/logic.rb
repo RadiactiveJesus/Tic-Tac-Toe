@@ -13,19 +13,22 @@ class Board
     if @turn
         @board[row][column] = "X"
         puts " Player 1 wins" if win?("X")
-        puts @board[0].to_s
-        puts @board[1].to_s
-        puts @board[2].to_s
+        print_board
         @turn = false
     else
         @board[row][column] = "O"
         puts " Player 2 wins" if win?("O")
-        puts @board[0].to_s
-        puts @board[1].to_s
-        puts @board[2].to_s
+        print_board
         @turn = true
     end
   end
+
+  def print_board
+    @board.each do|row|
+      puts row.to_s
+    end
+  end
+
   def win?(item)
     if (@board[0][0] == @board[1][1] &&  @board[1][1] == @board[2][2]  && @board[2][2]==item ) || (@board[0][2]== @board[1][1] && @board[1][1] == @board[2][0] && @board[2][0] == item)
       return true
