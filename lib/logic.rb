@@ -30,7 +30,7 @@ class Board
 
     def win?(item)
 
-      if (@board[0][0] == @board[1][1] &&  @board[1][1] == @board[2][2]  && @board[2][2]==item ) || (@board[0][2]== @board[1][1] && @board[0][2] == @board[0][2] && @board[0][2] == item)
+      if (@board[0][0] == @board[1][1] &&  @board[1][1] == @board[2][2]  && @board[2][2]==item ) || (@board[0][2]== @board[1][1] && @board[1][1] == @board[2][0] && @board[2][0] == item)
         return true
       end
 
