@@ -1,10 +1,11 @@
 class Board
     attr_accessor :board, :player1, :player2
-    @turn = true
+    
     @player1 = []
     @player2 = []
     
     def initialize
+        @turn = true
         @board = [
             [nil, nil, nil],
             [nil, nil, nil],
@@ -12,18 +13,17 @@ class Board
         ]        
     end
     def add_at(row, column)
-        if @turn == true
-            @board[row][column] = "X"
-            print " Player 1 wins" if win?("X")
-            print @board
-            @turn = false
-            
-        else
-            @board[row][column] = "O"
-            print " Player 2 wins" if win?("O")
-            print @board
-            @turn = true
-        end
+      if @turn
+          @board[row][column] = "X"
+          print " Player 1 wins" if win?("X")
+          print @board
+          @turn = false
+      else
+          @board[row][column] = "O"
+          print " Player 2 wins" if win?("O")
+          print @board
+          @turn = true
+      end
     end
 
     print @player1
@@ -39,7 +39,7 @@ class Board
           return true
         end
         value.each_with_index do|x, y|
-          if @board[0][y]== @board[1][y] && @board[0][y]==  @board[2][y] && @board[0][y] ==item
+          if @board[0][y]== @board[1][y] && @board[0][y] ==  @board[2][y] && @board[0][y] ==item
             return true
           end
         end
