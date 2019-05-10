@@ -15,26 +15,27 @@ class Board
       puts row.to_s
     end
   end
+
   def full?
-    @full = false
-    @count = 0
-    @board.each do |i|
-      @board.each do |j|
-        if @board[i][j] == 'X' || @board[i][j] == 'O'
-          count += 1
-        end
+    @board.each do |row|
+      row.each do |value|
+        return false if value == ' '
       end
     end
-    if count == 9
-      @full = true
+    true
+  end
+
+  def taken?(row, col)
+    if @board[row][col] != ' '
+      return true
     end
-    return @full
+    false
   end
 end
 
 class Player
   attr_accessor :name, :symbol
-  def initialize(name, symbol=nil)
+  def initialize(name, symbol = nil)
     @name = name
     @symbol = symbol
   end
@@ -44,35 +45,36 @@ class Player
 
     user_input = gets.chomp
     case user_input
-    when '0'
-      row =0
-      column = 0
-    when '1'
-      row =0
-      column = 1
-    when '2'
-      row =0
-      column = 2
-    when '3'
-      row =1
-      column = 0
-    when '4'
-      row =1
-      column = 1
-    when '5'
-      row =1
-      column = 2
-    when '6'
-      row =2
-      column = 0
-    when '7'
-      row =2
-      column = 1
-    when '8'
-      row =2
-      column = 2
-    else
-      print 'Thats not a valid position'
+      when '0'
+        row = 0
+        column = 0
+      when '1'
+        row = 0
+        column = 1
+      when '2'
+        row = 0
+        column = 2
+      when '3'
+        row = 1
+        column = 0
+      when '4'
+        row = 1
+        column = 1
+      when '5'
+        row = 1
+        column = 2
+      when '6'
+        row = 2
+        column = 0
+      when '7'
+        row = 2
+        column = 1
+      when '8'
+        row = 2
+        column = 2
+      else
+        puts "Thats not a valid position. Play again #{@name}"
+        row,column = play_at
     end
     puts " You played in row: #{row} column: #{column}"
     [row, column]
@@ -87,6 +89,7 @@ class Game
     @player_2 = Player.new('Player 2', 'O')
     @turn = 1
   end
+
   def win?(item)
     if (@board.board[0][0] == @board.board[1][1] && @board.board[1][1] == @board.board[2][2] && @board.board[2][2] == item) || (@board.board[0][2] == @board.board[1][1] && @board.board[1][1] == @board.board[2][0] && @board.board[2][0] == item)
       return true
@@ -110,10 +113,8 @@ class Game
     @board.board[row][column] = symbol
   end
 
-  def interface()
-    until win?('X') || win?('O')
-      change_turn
-    end
+  def interface
+    change_turn until win?('X') || win?('O')
     winner
   end
 
@@ -125,15 +126,15 @@ class Game
   def change_turn
     if @turn == 1
       reply = @player_1.play_at
+
       add_at(reply[0], reply[1], @player_1.symbol)
-      print "The game is a tie " if @board.full?
       @turn = 0
     else
       reply = @player_2.play_at
       add_at(reply[0], reply[1], @player_2.symbol)
-      print "The game is a tie " if @board.full?
       @turn = 1
     end
+    puts 'The game is a tie ' if @board.full?
     @board.print_board
   end
 end
