@@ -1,108 +1,143 @@
 class Board
   attr_accessor :board
-  
+
   def initialize
-      @turn = true
-      @board = [
-          [" ", " ", " "],
-          [" ", " ", " "],
-          [" ", " ", " "],
-      ]        
+    @turn = true
+    @board = [
+      [' ', ' ', ' '],
+      [' ', ' ', ' '],
+      [' ', ' ', ' ']
+    ]
   end
+
   def print_board
-    @board.each do|row|
+    @board.each do |row|
       puts row.to_s
     end
   end
 end
 
-
 class Player
   attr_accessor :name
   def initialize(name)
-      @name = name
+    @name = name
   end
-  def play_at(row, column)
-    #@board[row][column] = "X"
+
+  def play_at(user_input)
+    # @board[row][column] = "X"
+
+    case user_input
+    when '0'
+      row =0
+      column = 0
+    when '1'
+      row =0
+      column = 1
+    when '2'
+      row =0
+      column = 2
+    when '3'
+      row =1
+      column = 0
+    when '4'
+      row =1
+      column = 1
+    when '5'
+      row =1
+      column = 2
+    when '6'
+      row =2
+      column = 0
+    when '7'
+      row =2
+      column = 1
+    when '8'
+      row =2
+      column = 2
+    else
+      print 'Thats not a valid position'
+    end
     puts " You played in row: #{row} column: #{column}"
-    #puts " Player 1 wins" if win?("X")
-    return row, column
+    # puts " Player 1 wins" if win?("X")
+    [row, column]
   end
 end
 
 class Game
   attr_accessor :symbol
   def initialize
-    @game = Board.new  
-    @player1 = Player.new("Player 1")
-    @player12 = Player.new("Player 2")
+    @game = Board.new
+    @player1 = Player.new('Player 1')
+    @player2 = Player.new('Player 2')
   end
-  @symbol = "X"
+  @symbol = 'X'
   def win?(item)
-    if (@game.board[0][0] == @game.board[1][1] &&  @game.board[1][1] == @game.board[2][2]  && @game.board[2][2]==item ) || (@game.board[0][2]== @game.board[1][1] && @game.board[1][1] == @game.board[2][0] && @game.board[2][0] == item)
+    if (@game.board[0][0] == @game.board[1][1] && @game.board[1][1] == @game.board[2][2] && @game.board[2][2] == item) || (@game.board[0][2] == @game.board[1][1] && @game.board[1][1] == @game.board[2][0] && @game.board[2][0] == item)
       return true
     end
 
     @game.board.each_with_index do |value, i|
-      if @game.board[i][0]== @game.board[i][1] &&  @game.board[i][1]==  @game.board[i][2] && @game.board[i][1] ==item 
+      if @game.board[i][0] == @game.board[i][1] && @game.board[i][1] == @game.board[i][2] && @game.board[i][1] == item
         return true
       end
-      value.each_with_index do|x, y|
-        if @game.board[0][y]== @game.board[1][y] && @game.board[0][y] ==  @game.board[2][y] && @game.board[0][y] ==item
+
+      value.each_with_index do |_x, y|
+        if @game.board[0][y] == @game.board[1][y] && @game.board[0][y] == @game.board[2][y] && @game.board[0][y] == item
           return true
         end
       end
     end
-    return false
+    false
   end
+
   def add_at(row, column)
     @game.board[row][column] = @symbol
   end
-  def interface
-    until game.win?("X") || game.win?("O")
-      print "Type your turn : "
-  
-      input = gets.chomp 
+
+  def interface()
+    until win?('X') || win?('O')
+      print 'Type your turn : '
+
+      input = gets.chomp
+
       case input
-      when "0" 
-          add_at(0, 0)
-      when "1" 
-          add_at(0, 1)
-      when "2" 
-          add_at(0, 2)
-      when "3" 
-          add_at(1, 0)
-      when "4" 
-          add_at(1, 1)
-      when "5" 
-          add_at(1, 2)
-      when "6" 
-          add_at(2, 0)
-      when "7" 
-          add_at(2, 1)
-      when "8" 
-          add_at(2, 2)
-      else 
-          print "Thats not a valid position"
+      when '0'
+        add_at(0, 0)
+      when '1'
+        add_at(0, 1)
+      when '2'
+        add_at(0, 2)
+      when '3'
+        add_at(1, 0)
+      when '4'
+        add_at(1, 1)
+      when '5'
+        add_at(1, 2)
+      when '6'
+        add_at(2, 0)
+      when '7'
+        add_at(2, 1)
+      when '8'
+        add_at(2, 2)
+      else
+        print 'Thats not a valid position'
       end
       change_turn
     end
   end
+
   def winner
-    puts " Player 1 wins" if win?("X")
-    puts " Player 2 wins" if win?("O")
+    puts ' Player 1 wins' if win?('X')
+    puts ' Player 2 wins' if win?('O')
   end
+
   def change_turn
     case @symbol
-    when "X" 
-      @symbol = "O"
-    when "O" 
-      @symbol = "X"
+    when 'X'
+      @symbol = 'O'
+      player
+    when 'O'
+      @symbol = 'X'
     end
   end
 end
-
-
-
-
-
