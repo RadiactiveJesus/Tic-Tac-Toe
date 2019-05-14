@@ -25,8 +25,8 @@ class Board
     true
   end
 
-  def taken?(row, col)
-    if @board[row][col] != ' '
+  def taken?(row, column)
+    if @board[row][column] != ' '
       return true
     end
     false
@@ -34,16 +34,17 @@ class Board
 end
 
 class Player
-  attr_accessor :name, :symbol
+  attr_accessor :name, :symbol, :board
   def initialize(name, symbol = nil)
     @name = name
     @symbol = symbol
   end
 
-  def play_at
+  def play_at(board)
+    board.print_board
     print 'Type your turn : '
 
-    user_input = gets.chomp
+    user_input = gets.chomp 
     case user_input
       when '0'
         row = 0
@@ -74,10 +75,16 @@ class Player
         column = 2
       else
         puts "Thats not a valid position. Play again #{@name}"
-        row,column = play_at
+        row,column = play_at(board)
     end
-    puts " You played in row: #{row} column: #{column}"
-    [row, column]
+    if board.taken?(row, column)
+      puts "That position is already taken by a player, please play again"
+      row,column = play_at(board)
+    else
+      puts "You played in row: #{row} column: #{column}"
+      [row, column]
+    end
+    [row, column]    
   end
 end
 
@@ -89,7 +96,7 @@ class Game
     @player_2 = Player.new('Player 2', 'O')
     @turn = 1
   end
-
+  
   def win?(item)
     if (@board.board[0][0] == @board.board[1][1] && @board.board[1][1] == @board.board[2][2] && @board.board[2][2] == item) || (@board.board[0][2] == @board.board[1][1] && @board.board[1][1] == @board.board[2][0] && @board.board[2][0] == item)
       return true
@@ -125,16 +132,18 @@ class Game
 
   def change_turn
     if @turn == 1
-      reply = @player_1.play_at
+      reply = @player_1.play_at(@board)
 
       add_at(reply[0], reply[1], @player_1.symbol)
       @turn = 0
     else
-      reply = @player_2.play_at
+      reply = @player_2.play_at(@board)
       add_at(reply[0], reply[1], @player_2.symbol)
       @turn = 1
     end
-    puts 'The game is a tie ' if @board.full?
-    @board.print_board
+    if @board.full?
+      puts 'The game is a tie ' 
+      Game.new.interface
+    end
   end
 end
