@@ -46,31 +46,31 @@ class Player
 
     user_input = gets.chomp 
     case user_input
-      when '0'
-        row = 0
-        column = 0
       when '1'
         row = 0
-        column = 1
+        column = 0
       when '2'
         row = 0
-        column = 2
+        column = 1
       when '3'
-        row = 1
-        column = 0
+        row = 0
+        column = 2
       when '4'
         row = 1
-        column = 1
+        column = 0
       when '5'
         row = 1
-        column = 2
+        column = 1
       when '6'
-        row = 2
-        column = 0
+        row = 1
+        column = 2
       when '7'
         row = 2
-        column = 1
+        column = 0
       when '8'
+        row = 2
+        column = 1
+      when '9'
         row = 2
         column = 2
       else
@@ -81,7 +81,7 @@ class Player
       puts "That position is already taken by a player, please play again"
       row,column = play_at(board)
     else
-      puts "You played in row: #{row} column: #{column}"
+      puts "You played in row: #{row+1} column: #{column+1}"
       [row, column]
     end
     [row, column]    
