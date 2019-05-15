@@ -1,7 +1,7 @@
-require 'interface.rb'
+require '../lib/interface.rb'
 
 class Game
-  include interface
+  include Interface
   attr_accessor :symbol
 
   def initialize(board, player_1, player_2)
@@ -13,7 +13,7 @@ class Game
 
   def win?(item)
     temp = []
-    @board.each_with_index do |value, index|
+    @board.board.each_with_index do |value, index|
       temp << index if value == item
     end
     @board.win_patterns.each do |arr|
@@ -27,32 +27,33 @@ class Game
     @board.board[pos] = symbol
   end
 
-	def interface
-		
-    change_turn until win?('X') || win?('O')
+	def gameplay
+    change_turn until win?(@player_1.symbol) || win?(@player_2.symbol) || @board.full?
     winner
   end
 
   def winner
-    puts ' Player 1 wins' if win?('X')
-    puts ' Player 2 wins' if win?('O')
+    puts ' Player 1 wins' if win?(@player_1.symbol)
+    puts ' Player 2 wins' if win?(@player_2.symbol)
   end
 
   def change_turn
     if @turn == 1
-			index= Interface::get_input
+			index= get_input
       add_at(index, @player_1.symbol)
-      player_1.positions.push(index)
+      @player_1.positions.push(index)
+      print_board()
       @turn = 0
 		else
-			index= Interface::get_input	
+			index= get_input	
       add_at(index, @player_2.symbol)
-      player_2.positions.push(index)
+      @player_2.positions.push(index)
+      print_board()
       @turn = 1
     end
     if @board.full?
-      puts 'The game is a tie '
-      Game.new.interface
+      puts 'The game is a tie'
     end
   end
 end
+
