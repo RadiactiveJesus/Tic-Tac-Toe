@@ -1,12 +1,15 @@
-require '../bin/executable.rb'
+require 'interface.rb'
+
 class Game
+  include interface
   attr_accessor :symbol
-  def initialize (board, player_1, player_2)
+
+  def initialize(board, player_1, player_2)
     @board = board
     @player_1 = player_1
     @player_2 = player_2
     @turn = 1
-	end
+   end
 
   def win?(item)
     temp = []
@@ -24,7 +27,8 @@ class Game
     @board.board[pos] = symbol
   end
 
-  def interface
+	def interface
+		
     change_turn until win?('X') || win?('O')
     winner
   end
@@ -36,17 +40,18 @@ class Game
 
   def change_turn
     if @turn == 1
-      index = 
+			index= Interface::get_input
       add_at(index, @player_1.symbol)
       player_1.positions.push(index)
       @turn = 0
-    else
+		else
+			index= Interface::get_input	
       add_at(index, @player_2.symbol)
       player_2.positions.push(index)
       @turn = 1
     end
     if @board.full?
-      puts 'The game is a tie ' 
+      puts 'The game is a tie '
       Game.new.interface
     end
   end
