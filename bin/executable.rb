@@ -1,25 +1,29 @@
-require '../lib/logic.rb'
-new_game = Game.new
+require '../lib/board.rb'
+require '../lib/game.rb'
+require '../lib/interface.rb'
+require '../lib/player.rb'
+board = Board.new
+player_1 = Player.new('Player 1', 'X')
+player_2 = Player.new('Player 2', 'O')
+new_game = Game.new(board, player_1, player_2)
 new_game.interface
 
-def play_at(board)
-	board.print_board
-	print 'Type your turn : '
 
-	user_input = gets.chomp
+board.print_board
+print 'Type your turn : '
 
-	if user_input.to_i < 0 ||  user_input.to_i >9
-		puts "Thats not a valid position. Play again #{@name}"
-	end
+user_input = gets.chomp
+position = user_input.to_i
 
-	if board.taken?(user_input.to_i)
-		puts "That position is already taken by a player, please play again"
-		row,column = play_at(board)
-	else
-		puts "You played in row: #{row+1} column: #{column+1}"
-		
-	end
-  
+if user_input.to_i < 0 ||  user_input.to_i > 9
+    puts "Thats not a valid position. Play again #{@name}"
 end
+
+if board.taken?(user_input.to_i)
+    puts "That position is already taken by a player, please play again"
+    position = play_at(board)  
+end
+return position
+
 
      
