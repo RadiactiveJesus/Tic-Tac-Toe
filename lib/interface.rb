@@ -4,7 +4,7 @@ module Interface
 	  user_input = gets.chomp
 	  position = user_input.to_i
   
-	  if user_input.to_i < 0 || user_input.to_i > 9
+	  if user_input.to_i < 0 || user_input.to_i > 8
 			  puts "Thats not a valid position. Play again "
 			  position = get_input()
 	  end
