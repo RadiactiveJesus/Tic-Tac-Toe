@@ -38,11 +38,11 @@ class Game
     if @turn == 1
       index = 
       add_at(index, @player_1.symbol)
-      player_1.positions.push(index).sort!
+      player_1.positions.push(index)
       @turn = 0
     else
       add_at(index, @player_2.symbol)
-      player_2.positions.push(index).sort!
+      player_2.positions.push(index)
       @turn = 1
     end
     if @board.full?
