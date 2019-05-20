@@ -15,6 +15,17 @@ module Interface
 	  end
 	  position
 	end
+	
+	def winner
+    puts ' Player 1 wins' if win?(@player_1.symbol)
+    puts ' Player 2 wins' if win?(@player_2.symbol)
+	end
+	
+	def tie
+		if @board.full?
+			puts 'The game is a tie'
+		end
+	end
   
 	def print_board
 	  puts "\t  #{@board.board[0]} | #{@board.board[1]} | #{@board.board[2]} "
@@ -24,4 +35,4 @@ module Interface
 	  puts "\t  #{@board.board[6]} | #{@board.board[7]} | #{@board.board[8]} "
 	  puts ''
 	end
-  end
+end

@@ -8,5 +8,9 @@ class Player
     @positions = [] 
   end
 
+  def move(index)
+    @positions.push(index)
+  end
+
   
 end
