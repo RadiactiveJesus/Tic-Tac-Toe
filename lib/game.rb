@@ -14,19 +14,24 @@ class Game
   def gameplay
     print_board
     until is_game_over?
-      if @turn == 1
-        action(@player_1)
-        @turn = 0
-      else
-        action(@player_2)
-        @turn = 1
-      end
+      player = change_turn
+      action(player)
       tie
     end
   end
   
   private 
-   
+  
+  #check which player is supposed to play
+  def change_turn
+    if @turn == 1
+      @turn = 0
+      @player_1
+    else
+      @turn = 1
+      @player_2
+    end
+  end
   def win?(item)
     temp = []
     @board.board.each_with_index do |value, index|

@@ -22,7 +22,7 @@ module Interface
 	end
 	
 	def tie
-		if @board.full?
+		if @board.full?  && !win?(@player_1.symbol) && !win?(@player_2.symbol)
 			puts 'The game is a tie'
 		end
 	end
