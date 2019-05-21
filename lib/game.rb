@@ -9,8 +9,24 @@ class Game
     @player_1 = player_1
     @player_2 = player_2
     @turn = 1
-   end
+  end
 
+  def gameplay
+    print_board
+    until is_game_over?
+      if @turn == 1
+        action(@player_1)
+        @turn = 0
+      else
+        action(@player_2)
+        @turn = 1
+      end
+      tie
+    end
+  end
+  
+  private 
+   
   def win?(item)
     temp = []
     @board.board.each_with_index do |value, index|
@@ -23,28 +39,16 @@ class Game
     false
   end
 
-
-	def gameplay
-    change_turn until win?(@player_1.symbol) || win?(@player_2.symbol) || @board.full?
-    winner()
+  def is_game_over?
+    win?(@player_1.symbol) || win?(@player_2.symbol) || @board.full?
   end
 
-  def change_turn
-    if @turn == 1
-      action(@player_1)
-      @turn = 0
-		else
-			action(@player_2)
-      @turn = 1
-    end
-    tie()
-  end
   
   def action(player)
     index= get_input
     @board.add_at(index, player.symbol)
-    player.move(index)
-    print_board()
+    print_board
+    winner
   end
 end
 

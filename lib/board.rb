@@ -19,8 +19,7 @@ class Board
   end
 
   def taken?(value)
-    return true unless @board[value].is_a? Integer
+    @board[value].is_a? Integer
 
-    false
   end
 end
