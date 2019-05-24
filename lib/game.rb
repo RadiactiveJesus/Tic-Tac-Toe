@@ -38,6 +38,7 @@ class Game
     if !is_game_over?
       index = get_input
       @board.add_at(index, player.symbol)
+      player.move(index)
       print_board
       winner
       tie

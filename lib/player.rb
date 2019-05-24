@@ -8,4 +8,8 @@ class Player
     @positions = []
   end
 
+  def move(pos)
+    @positions << pos
+  end
+
 end
