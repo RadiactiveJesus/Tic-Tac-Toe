@@ -2,7 +2,7 @@ require '../lib/interface.rb'
 
 class Game
   include Interface
-  attr_accessor :symbol
+ 
 
   def initialize(board, player_1, player_2)
     @board = board
