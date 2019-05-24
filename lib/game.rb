@@ -23,7 +23,6 @@ class Game
   def win?(player)
     
     @board.win_patterns.each do |arr|
-      # result = arr - temp
       return true if arr.all? {|i| player.positions.include? i}
     end
     false
