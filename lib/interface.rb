@@ -1,24 +1,26 @@
 module Interface
 	def get_input
-		puts "Please type a position to play your turn :"
-	  user_input = gets.chomp
-	  position = user_input.to_i
-  
-	  if user_input.to_i < 0 || user_input.to_i > 8
-			  puts "Thats not a valid position. Play again "
-			  position = get_input
-	  end
-  
-	  if @board.board[user_input.to_i].is_a? String
-		puts 'That position is already taken by a player, please play again'
-		position = get_input
-	  end
-	  position
+		if !win?(@player_1) && !win?(@player_2) && !@board.full?
+			puts "Please type a position to play your turn :"
+			user_input = gets.chomp
+			position = user_input.to_i
+		
+			if user_input.to_i < 0 || user_input.to_i > 8
+					puts "Thats not a valid position. Play again "
+					position = get_input
+			end
+		
+			if @board.taken?(user_input.to_i)
+			puts 'That position is already taken by a player, please play again'
+			position = get_input
+			end
+			position
+		end
 	end
 	
 	def winner
-    puts ' Player 1 wins' if win?(@player_1.symbol)
-    puts ' Player 2 wins' if win?(@player_2.symbol)
+    puts ' Player 1 wins' if win?(@player_1)
+    puts ' Player 2 wins' if win?(@player_2)
 	end
 	
 	def tie

@@ -8,47 +8,40 @@ class Game
     @board = board
     @player_1 = player_1
     @player_2 = player_2
-    @turn = 1
   end
 
   def gameplay
     print_board
     until is_game_over?
-      if @turn == 1
-        action(@player_1)
-        @turn = 0
-      else
-        action(@player_2)
-        @turn = 1
-      end
-      tie
+      action(@player_1)
+      action(@player_2)
     end
   end
   
   private 
    
-  def win?(item)
-    temp = []
-    @board.board.each_with_index do |value, index|
-      temp << index if value == item
-    end
+  def win?(player)
+    
     @board.win_patterns.each do |arr|
-      result = arr - temp
-      return true if result.empty?
+      # result = arr - temp
+      return true if arr.all? {|i| player.positions.include? i}
     end
     false
   end
 
   def is_game_over?
-    win?(@player_1.symbol) || win?(@player_2.symbol) || @board.full?
+    win?(@player_1) || win?(@player_2) || @board.full?
   end
 
   
   def action(player)
-    index= get_input
-    @board.add_at(index, player.symbol)
-    print_board
-    winner
+    if !is_game_over?
+      index = get_input
+      @board.add_at(index, player.symbol)
+      print_board
+      winner
+      tie
+    end
   end
 end
 
