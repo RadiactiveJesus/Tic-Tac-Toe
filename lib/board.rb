@@ -13,10 +13,7 @@ class Board
   end
 
   def full?
-    @board.each do |value|
-      return false if value.is_a? Integer
-    end
-    true
+    @board.all?{|value| value.is_a? String}
   end
 
   def taken?(value)
