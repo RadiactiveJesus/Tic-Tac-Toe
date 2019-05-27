@@ -1,4 +1,4 @@
-require '../lib/interface.rb'
+require 'interface.rb'
 
 class Game
   include Interface

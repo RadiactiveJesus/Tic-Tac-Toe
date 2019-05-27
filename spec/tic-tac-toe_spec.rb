@@ -1,7 +1,7 @@
-require '/lib/board.rb'
-require '/lib/game.rb'
-require '/lib/interface.rb'
-require '/lib/player.rb'
+require './lib/board.rb'
+require './lib/game.rb'
+require './lib/interface.rb'
+require './lib/player.rb'
 
 RSpec.describe Board do
     describe "#add_at" do
