@@ -1,8 +1,8 @@
 module Interface
-	def get_input
+	def get_input(user_input = gets.chomp)
 		if !win?(@player_1) && !win?(@player_2) && !@board.full?
 			puts "Please type a position to play your turn :"
-			user_input = gets.chomp
+			
 			position = user_input.to_i
 		
 			if user_input.to_i < 0 || user_input.to_i > 8
@@ -19,14 +19,25 @@ module Interface
 	end
 	
 	def winner
-    puts ' Player 1 wins' if win?(@player_1)
-    puts ' Player 2 wins' if win?(@player_2)
+		status = nil
+		if win?(@player_1)
+			status = ' Player 1 wins'
+			puts  status
+		end
+		if win?(@player_2)
+			status = ' Player 2 wins' 
+			puts status
+		end
+		status
 	end
 	
 	def tie
+		status = nil
 		if @board.full?  && !win?(@player_1) && !win?(@player_2)
-			puts 'The game is a tie'
+			status = 'The game is a tie'
+			puts status
 		end
+		status
 	end
   
 	def print_board

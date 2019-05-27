@@ -1,6 +1,5 @@
 require '../lib/board.rb'
 require '../lib/game.rb'
-require '../lib/interface.rb'
 require '../lib/player.rb'
 
 board = Board.new
