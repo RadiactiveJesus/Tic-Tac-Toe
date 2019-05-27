@@ -19,25 +19,15 @@ module Interface
 	end
 	
 	def winner
-		status = nil
-		if win?(@player_1)
-			status = ' Player 1 wins'
-			puts  status
-		end
-		if win?(@player_2)
-			status = ' Player 2 wins' 
-			puts status
-		end
-		status
+		puts ' Player 1 wins' if win?(@player_1)
+		puts ' Player 2 wins' if win?(@player_2)
 	end
 	
 	def tie
-		status = nil
 		if @board.full?  && !win?(@player_1) && !win?(@player_2)
-			status = 'The game is a tie'
-			puts status
+			puts 'The game is a tie'
 		end
-		status
+		
 	end
   
 	def print_board
