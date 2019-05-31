@@ -1,4 +1,4 @@
-require '../lib/interface.rb'
+require_relative 'interface.rb'
 
 class Game
   include Interface
@@ -17,8 +17,7 @@ class Game
       action(@player_2)
     end
   end
-  
-  private 
+   
    
   def win?(player)
     
