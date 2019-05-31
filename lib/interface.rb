@@ -1,5 +1,6 @@
 module Interface
 	def get_input(user_input = gets.chomp)
+		position = nil
 		if !win?(@player_1) && !win?(@player_2) && !@board.full?
 			puts "Please type a position to play your turn :"
 			
@@ -16,6 +17,7 @@ module Interface
 			end
 			position
 		end
+		position
 	end
 	
 	def winner
